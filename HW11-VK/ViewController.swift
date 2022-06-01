@@ -3,6 +3,7 @@ import UIKit
 class ViewController: UIViewController {
     
     private lazy var parentStackView = createStackView(axis: .vertical, alignment: .fill)
+    private lazy var headerStackView = createStackView(axis: .horizontal, alignment: .center)
     
     // MARK: - Lifecycle
     
@@ -19,6 +20,8 @@ class ViewController: UIViewController {
     private func setupHierarchy() {
         
         view.addSubview(parentStackView)
+        
+        parentStackView.addArrangedSubview(headerStackView)
     }
     
     private func setupLayout() {
@@ -30,6 +33,11 @@ class ViewController: UIViewController {
                                                  constant: Metric.parentStackViewLeadingOffset).isActive = true
         parentStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
                                                   constant: Metric.parentStackViewTrailingOffset).isActive = true
+        
+        headerStackView.translatesAutoresizingMaskIntoConstraints = false
+        headerStackView.topAnchor.constraint(equalTo: parentStackView.topAnchor).isActive = true
+        headerStackView.leadingAnchor.constraint(equalTo: parentStackView.leadingAnchor).isActive = true
+        headerStackView.trailingAnchor.constraint(equalTo: parentStackView.trailingAnchor).isActive = true
     }
     
     private func setupView() {
