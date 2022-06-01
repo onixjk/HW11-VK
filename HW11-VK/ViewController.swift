@@ -21,6 +21,14 @@ class ViewController: UIViewController {
         return imageView
     }()
     
+    private lazy var separator: UIView = {
+        let view = UIView()
+        
+        view.backgroundColor = .gray
+        
+        return view
+    }()
+    
     private lazy var parentStackView = createStackView(axis: .vertical, alignment: .fill)
     private lazy var headerStackView = createStackView(axis: .horizontal, alignment: .center)
     private lazy var statusStackView = createStackView(axis: .vertical, alignment: .leading)
@@ -60,6 +68,7 @@ class ViewController: UIViewController {
         parentStackView.addArrangedSubview(headerStackView)
         parentStackView.addArrangedSubview(editButton)
         parentStackView.addArrangedSubview(buttonsWithTopImageStackView)
+        parentStackView.addArrangedSubview(separator)
         
         headerStackView.addArrangedSubview(logo)
         headerStackView.addArrangedSubview(statusStackView)
@@ -110,6 +119,8 @@ class ViewController: UIViewController {
         
         buttonsWithTopImageStackView.leftAnchor.constraint(equalTo: parentStackView.leftAnchor).isActive = true
         buttonsWithTopImageStackView.trailingAnchor.constraint(equalTo: parentStackView.trailingAnchor).isActive = true
+        
+        separator.heightAnchor.constraint(equalToConstant: Metric.separatorHeight).isActive = true
     }
     
     private func setupView() {
@@ -194,6 +205,8 @@ extension ViewController {
         static let logoWidth: CGFloat = 100
         
         static let editButtonHeight: CGFloat = 40
+        
+        static let separatorHeight: CGFloat = 1
     }
     
     enum Color {
