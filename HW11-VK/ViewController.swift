@@ -25,12 +25,18 @@ class ViewController: UIViewController {
     private lazy var headerStackView = createStackView(axis: .horizontal, alignment: .center)
     private lazy var statusStackView = createStackView(axis: .vertical, alignment: .leading)
     private lazy var statusLabelStackView = createStackView(axis: .horizontal, alignment: .fill)
+    private lazy var buttonsWithTopImageStackView = createStackView(axis: .horizontal, alignment: .fill)
     
     private lazy var nameLabel = createLabel(text: "Имя Фамилия", textColor: .white, fontSize: 22, weight: .medium)
     private lazy var statusLabel = createLabel(text: "online", textColor: .systemGray, fontSize: 16, weight: .regular)
     
     private lazy var statusButton = createButton(title: "Установить статус", titleColor: Color.blueColor, fontSize: 18, weight: .light)
     private lazy var editButton = createButton(title: "Редактировать", titleColor: .white, fontSize: 18, weight: .medium)
+    
+    private lazy var historyButton = createButtonWithTopImage(imageName: "camera", title: "История", color: Color.blueColor)
+    private lazy var recordButton = createButtonWithTopImage(imageName: "square.and.pencil", title: "Запись", color: Color.blueColor)
+    private lazy var photoButton = createButtonWithTopImage(imageName: "photo", title: "Фото", color: Color.blueColor)
+    private lazy var clipButton = createButtonWithTopImage(imageName: "play", title: "Клип", color: Color.blueColor)
     
     // MARK: - Lifecycle
     
@@ -53,6 +59,7 @@ class ViewController: UIViewController {
         
         parentStackView.addArrangedSubview(headerStackView)
         parentStackView.addArrangedSubview(editButton)
+        parentStackView.addArrangedSubview(buttonsWithTopImageStackView)
         
         headerStackView.addArrangedSubview(logo)
         headerStackView.addArrangedSubview(statusStackView)
@@ -63,6 +70,11 @@ class ViewController: UIViewController {
         
         statusLabelStackView.addArrangedSubview(statusLabel)
         statusLabelStackView.addArrangedSubview(phoneImage)
+        
+        buttonsWithTopImageStackView.addArrangedSubview(historyButton)
+        buttonsWithTopImageStackView.addArrangedSubview(recordButton)
+        buttonsWithTopImageStackView.addArrangedSubview(photoButton)
+        buttonsWithTopImageStackView.addArrangedSubview(clipButton)
     }
     
     private func setupLayout() {
@@ -95,6 +107,9 @@ class ViewController: UIViewController {
         editButton.leadingAnchor.constraint(equalTo: parentStackView.leadingAnchor).isActive = true
         editButton.trailingAnchor.constraint(equalTo: parentStackView.trailingAnchor).isActive = true
         editButton.heightAnchor.constraint(equalToConstant: Metric.editButtonHeight).isActive = true
+        
+        buttonsWithTopImageStackView.leftAnchor.constraint(equalTo: parentStackView.leftAnchor).isActive = true
+        buttonsWithTopImageStackView.trailingAnchor.constraint(equalTo: parentStackView.trailingAnchor).isActive = true
     }
     
     private func setupView() {
@@ -143,6 +158,24 @@ class ViewController: UIViewController {
         button.setTitle(title, for: .normal)
         button.setTitleColor(titleColor, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: fontSize, weight: weight)
+        
+        return button
+    }
+    
+    private func createButtonWithTopImage(imageName: String, title: String, color: UIColor) -> UIButton {
+        var configuration = UIButton.Configuration.plain()
+        
+        configuration.title = title
+        configuration.baseForegroundColor = color
+        
+        configuration.image = UIImage(systemName: imageName)
+        configuration.imagePlacement = .top
+        configuration.imagePadding = 8
+        
+        configuration.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        
+        let button = UIButton(configuration: configuration)
         
         return button
     }
