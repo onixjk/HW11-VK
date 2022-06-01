@@ -30,6 +30,7 @@ class ViewController: UIViewController {
     private lazy var statusLabel = createLabel(text: "online", textColor: .systemGray, fontSize: 16, weight: .regular)
     
     private lazy var statusButton = createButton(title: "Установить статус", titleColor: Color.blueColor, fontSize: 18, weight: .light)
+    private lazy var editButton = createButton(title: "Редактировать", titleColor: .white, fontSize: 18, weight: .medium)
     
     // MARK: - Lifecycle
     
@@ -39,7 +40,9 @@ class ViewController: UIViewController {
         setupHierarchy()
         setupLayout()
         setupView()
+        setupStackView()
         setupImageView()
+        setupButton()
     }
     
     // MARK: - Settings
@@ -49,6 +52,7 @@ class ViewController: UIViewController {
         view.addSubview(parentStackView)
         
         parentStackView.addArrangedSubview(headerStackView)
+        parentStackView.addArrangedSubview(editButton)
         
         headerStackView.addArrangedSubview(logo)
         headerStackView.addArrangedSubview(statusStackView)
@@ -86,15 +90,29 @@ class ViewController: UIViewController {
         statusStackView.leadingAnchor.constraint(equalTo: logo.trailingAnchor).isActive = true
         statusStackView.trailingAnchor.constraint(equalTo: parentStackView.trailingAnchor).isActive = true
         statusStackView.bottomAnchor.constraint(equalTo: headerStackView.bottomAnchor).isActive = true
+        
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        editButton.leadingAnchor.constraint(equalTo: parentStackView.leadingAnchor).isActive = true
+        editButton.trailingAnchor.constraint(equalTo: parentStackView.trailingAnchor).isActive = true
+        editButton.heightAnchor.constraint(equalToConstant: Metric.editButtonHeight).isActive = true
     }
     
     private func setupView() {
         view.backgroundColor = .black
     }
     
+    private func setupStackView() {
+        parentStackView.spacing = 10
+    }
+    
     private func setupImageView() {
         logo.layer.masksToBounds = true
         logo.layer.cornerRadius = 50
+    }
+    
+    private func setupButton() {
+        editButton.backgroundColor = Color.darkGrayColor
+        editButton.layer.cornerRadius = 10
     }
 
     
@@ -141,10 +159,13 @@ extension ViewController {
         static let logoTrailingOffset: CGFloat = -10
         static let logoHeight: CGFloat = 100
         static let logoWidth: CGFloat = 100
+        
+        static let editButtonHeight: CGFloat = 40
     }
     
     enum Color {
         static let blueColor: UIColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        static let darkGrayColor = #colorLiteral(red: 0.1415808797, green: 0.1537714303, blue: 0.1702026427, alpha: 1)
     }
 }
 
